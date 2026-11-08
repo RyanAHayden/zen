@@ -39,8 +39,20 @@ fi
 
 echo "==> zen: profiles"
 if [ ! -f "$PROFILES/profiles.ini" ]; then
-	echo "  no profile yet - open Zen once, quit it and re-run this"
-	exit 0
+	# fresh install: start Zen once without a window so it makes its own default profiles (the same ones a first
+	# launch would, so it opens them later and Firefox Sync can be signed into as usual), then stop it
+	echo "  no profile yet, creating it"
+	if [ "$(uname)" = Darwin ]; then zen=/Applications/Zen.app/Contents/MacOS/zen; else zen=zen-browser; fi
+	MOZ_NO_REMOTE=1 "$zen" --headless --no-remote >/dev/null 2>&1 &
+	pid=$!
+	for _ in $(seq 60); do [ -f "$PROFILES/installs.ini" ] && break; sleep 0.5; done
+	sleep 2
+	kill $pid 2>/dev/null || true
+	wait $pid 2>/dev/null || true
+	if [ ! -f "$PROFILES/profiles.ini" ]; then
+		echo "  Zen didn't create a profile - open it once, quit it and re-run this"
+		exit 0
+	fi
 fi
 running && echo "  Zen is running: skipping the mods list and Library button (quit Zen and re-run for those)"
 sed -n 's/^Path=//p' "$PROFILES/profiles.ini" | while read -r p; do

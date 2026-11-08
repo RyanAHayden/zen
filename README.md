@@ -10,4 +10,4 @@ One Zen setup shared by macOS ([hypr-mac](https://github.com/RyanAHayden/hypr-ma
 - turns off the Library (`zen.library.enabled`) and puts the plain Downloads button back in the sidebar
 - turns off window sync (`zen.window-sync.enabled`), so new windows open blank instead of mirroring your spaces
 
-Quit Zen before running it, otherwise the mods list and the Library button are skipped. Bookmarks, history and tabs come from Firefox Sync (sign in once per machine).
+On a fresh install it starts Zen once without a window to create the profile, so it all applies in one run. Quit Zen before running it, otherwise the mods list and the Library button are skipped. Bookmarks, history and tabs come from Firefox Sync (sign in once per machine, after setup). Sync can carry add-ons too; `extensions.txt` is the set every new machine starts with. Prefs in `user.js` win over synced settings every start.
