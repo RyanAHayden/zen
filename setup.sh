@@ -17,20 +17,23 @@ else
 	running() { pgrep -x zen-bin >/dev/null; }
 fi
 
-echo "==> zen: extensions"
+echo "==> zen: policies (policies.json + extensions.txt)"
 ext=$(grep -v -e '^#' -e '^$' "$REPO/extensions.txt" | jq -R -n '[inputs | split(" ") | {key: .[0], value: {
 	install_url: "https://addons.mozilla.org/firefox/downloads/latest/\(.[1])/latest.xpi",
 	installation_mode: "normal_installed"}}] | from_entries')
+policies=$(jq --argjson ext "$ext" '.ExtensionSettings = $ext' "$REPO/policies.json")
 if [ "$(uname)" = Darwin ]; then
-	# policy prefs (domain = bundle id), so the signed app bundle is never touched
+	# policy prefs (domain = bundle id), one key per policy, so the signed app bundle is never touched
 	defaults write app.zen-browser.zen EnterprisePoliciesEnabled -bool true
-	defaults write app.zen-browser.zen ExtensionSettings "$(jq -n --argjson ext "$ext" '$ext' |
-		plutil -convert xml1 -o - - | sed -n '/^<dict>/,/^<\/dict>/p')"
+	for key in $(jq -r 'keys[]' <<<"$policies"); do
+		defaults write app.zen-browser.zen "$key" "$(jq --arg k "$key" '.[$k]' <<<"$policies" |
+			plutil -convert xml1 -o - - | sed -n '/^<dict>/,/^<\/dict>/p')"
+	done
 else
-	# package updates reset this file; installed extensions stay, re-run to pick up new ones
-	policies=/opt/zen-browser-bin/distribution/policies.json
-	jq --argjson ext "$ext" '.policies.ExtensionSettings = ((.policies.ExtensionSettings // {}) + $ext)' "$policies" >/tmp/zen-policies.json
-	sudo install -m644 /tmp/zen-policies.json "$policies"
+	# package updates reset this file; installed extensions stay, re-run to restore the rest
+	file=/opt/zen-browser-bin/distribution/policies.json
+	jq --argjson p "$policies" '.policies += $p' "$file" >/tmp/zen-policies.json
+	sudo install -m644 /tmp/zen-policies.json "$file"
 	rm /tmp/zen-policies.json
 fi
 

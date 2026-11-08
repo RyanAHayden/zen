@@ -1,0 +1,11 @@
+{
+  "SearchEngines": {
+    "Add": [
+      { "Name": "Duckduckgo", "URLTemplate": "https://duckduckgo.com/?ia=web&origin=funnel_home_website&t=h_&q={searchTerms}" },
+      { "Name": "Youtube", "URLTemplate": "https://www.youtube.com/results?search_query={searchTerms}" },
+      { "Name": "Brave", "URLTemplate": "https://search.brave.com/search?q={searchTerms}" }
+    ],
+    "Default": "Duckduckgo",
+    "Remove": ["Bing", "DuckDuckGo", "Perplexity", "Wikipedia (en)", "eBay"]
+  }
+}

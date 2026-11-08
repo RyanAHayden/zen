@@ -4,7 +4,7 @@ One Zen setup shared by macOS ([hypr-mac](https://github.com/RyanAHayden/hypr-ma
 
 `setup.sh`:
 - installs Zen (Homebrew cask `zen` / `zen-browser-bin` from the AUR)
-- installs everything in `extensions.txt` (`<addon id> <addons.mozilla.org slug>`) through enterprise policy: macOS `app.zen-browser.zen` prefs, Linux the package's `distribution/policies.json` (reset by updates - installed extensions stay, re-run for new ones)
+- applies `policies.json` (search engines: DuckDuckGo default, YouTube, Brave, Google; Bing/Perplexity/Wikipedia/eBay removed) and installs everything in `extensions.txt` (`<addon id> <addons.mozilla.org slug>`) through enterprise policy: macOS `app.zen-browser.zen` prefs, Linux the package's `distribution/policies.json` (reset by updates - installed extensions stay, re-run for new ones)
 - links `user.js` (prefs, reapplied every start - change them here) and `chrome/` (Catppuccin Mocha userChrome/userContent, the Ghost Tabs and No Top Sites mods) into every profile
 - copies `zen-themes.json` (the mods list) and merges `customKeys.json` (Cmd/Ctrl+1-5 workspaces, Alt+A/D previous/next workspace, Cmd/Ctrl+J downloads, Cmd/Ctrl+Shift+A add-ons)
 - turns off the Library (`zen.library.enabled`) and puts the plain Downloads button back in the sidebar
