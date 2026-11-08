@@ -8,5 +8,6 @@ One Zen setup shared by macOS ([hypr-mac](https://github.com/RyanAHayden/hypr-ma
 - links `user.js` (prefs, reapplied every start - change them here) and `chrome/` (Catppuccin Mocha userChrome/userContent, the Ghost Tabs and No Top Sites mods) into every profile
 - copies `zen-themes.json` (the mods list) and merges `customKeys.json` (Cmd/Ctrl+1-5 workspaces, Alt+A/D previous/next workspace, Cmd/Ctrl+J downloads, Cmd/Ctrl+Shift+A add-ons)
 - turns off the Library (`zen.library.enabled`) and puts the plain Downloads button back in the sidebar
+- turns off window sync (`zen.window-sync.enabled`), so new windows open blank instead of mirroring your spaces
 
 Quit Zen before running it, otherwise the mods list and the Library button are skipped. Bookmarks, history and tabs come from Firefox Sync (sign in once per machine).

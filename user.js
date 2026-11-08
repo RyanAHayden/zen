@@ -3,6 +3,8 @@
 
 // no Library: the sidebar keeps the plain Downloads button
 user_pref("zen.library.enabled", false);
+// windows don't share tabs/spaces (Zen 1.17+ window sync), so a new window opens blank like it used to
+user_pref("zen.window-sync.enabled", false);
 
 user_pref("zen.view.compact.enable-at-startup", false);
 user_pref("zen.splitView.enable-tab-drop", false);
