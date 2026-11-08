@@ -58,7 +58,7 @@ running && echo "  Zen is running: skipping the mods list and Library button (qu
 sed -n 's/^Path=//p' "$PROFILES/profiles.ini" | while read -r p; do
 	dir="$PROFILES/$p"
 	[ -d "$dir" ] || continue
-	[ -e "$dir/chrome" ] && [ ! -L "$dir/chrome" ] && rm -rf "$dir/chrome.bak" && mv "$dir/chrome" "$dir/chrome.bak"
+	if [ -e "$dir/chrome" ] && [ ! -L "$dir/chrome" ]; then rm -rf "$dir/chrome.bak" && mv "$dir/chrome" "$dir/chrome.bak"; fi
 	ln -sfn "$REPO/chrome" "$dir/chrome"
 	ln -sf "$REPO/user.js" "$dir/user.js"
 	# merged, not linked: Zen rewrites customKeys.json when shortcuts are changed in settings
@@ -68,7 +68,9 @@ sed -n 's/^Path=//p' "$PROFILES/profiles.ini" | while read -r p; do
 	if ! running; then
 		cp "$REPO/zen-themes.json" "$dir/zen-themes.json"
 		# Library button -> Downloads button (zen.library.enabled=false only changes the default for new profiles)
-		[ -f "$dir/prefs.js" ] && sed -i.bak 's/\\"zen-library-button\\"/\\"downloads-button\\"/' "$dir/prefs.js" && rm "$dir/prefs.js.bak"
+		if [ -f "$dir/prefs.js" ]; then
+			sed -i.bak 's/\\"zen-library-button\\"/\\"downloads-button\\"/' "$dir/prefs.js" && rm "$dir/prefs.js.bak"
+		fi
 	fi
 done
 echo "==> zen: done, restart Zen to apply"
