@@ -1,0 +1,45 @@
+{
+  "key_openAddons": {
+    "modifiers": "accel,shift",
+    "key": "A"
+  },
+  "key_openDownloads": {
+    "modifiers": "accel",
+    "key": "J"
+  },
+  "key_search2": {},
+  "focusURLBar2": {},
+  "zen-workspace-switch-10": {},
+  "zen-workspace-switch-9": {},
+  "zen-workspace-switch-8": {},
+  "zen-workspace-switch-7": {},
+  "zen-workspace-switch-6": {},
+  "zen-workspace-switch-5": {
+    "modifiers": "accel",
+    "key": "5"
+  },
+  "zen-workspace-switch-4": {
+    "modifiers": "accel",
+    "key": "4"
+  },
+  "zen-workspace-switch-3": {
+    "modifiers": "accel",
+    "key": "3"
+  },
+  "zen-workspace-switch-2": {
+    "modifiers": "accel",
+    "key": "2"
+  },
+  "zen-workspace-switch-1": {
+    "modifiers": "accel",
+    "key": "1"
+  },
+  "zen-workspace-forward": {
+    "modifiers": "alt",
+    "key": "D"
+  },
+  "zen-workspace-backward": {
+    "modifiers": "alt",
+    "key": "A"
+  }
+}

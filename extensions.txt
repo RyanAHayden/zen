@@ -1,0 +1,15 @@
+# Extensions installed on every machine by setup.sh (enterprise policy, normal_installed: removable, auto-updating).
+# <addon id> <addons.mozilla.org slug>
+uBlock0@raymondhill.net ublock-origin
+keepassxc-browser@keepassxc.org keepassxc-browser
+{d7742d87-e61d-4b78-b8a1-b469842139fa} vimium-ff
+addon@darkreader.org darkreader
+adguardadblocker@adguard.com adguard-adblocker
+{aecec67f-0d10-4fa7-b7c7-609a2db280cf} violentmonkey
+sponsorBlocker@ajay.app sponsorblock
+deArrow@ajay.app dearrow
+{26b4f076-089c-4c69-8497-44b7e5c9faef} socialfocus
+{e38a0bfa-b0ab-4197-a86e-421527d9cded} youtube-watch-later-cleaner
+savewebpas@jeffersonscher.com save-webp-as-png-or-jpeg
+{9c0fdd1d-a568-4247-99df-efa3a3727008} private-begone
+{0683b144-0d4a-4815-963e-55a8ec8d386b} profiles_cyan
