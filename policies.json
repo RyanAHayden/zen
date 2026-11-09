@@ -1,11 +1,12 @@
 {
   "SearchEngines": {
     "Add": [
-      { "Name": "Duckduckgo", "URLTemplate": "https://duckduckgo.com/?ia=web&origin=funnel_home_website&t=h_&q={searchTerms}" },
-      { "Name": "Youtube", "URLTemplate": "https://www.youtube.com/results?search_query={searchTerms}" },
-      { "Name": "Brave", "URLTemplate": "https://search.brave.com/search?q={searchTerms}" }
+      { "Name": "Duckduckgo", "URLTemplate": "https://duckduckgo.com/?ia=web&origin=funnel_home_website&t=h_&q={searchTerms}", "Alias": "d" },
+      { "Name": "Youtube", "URLTemplate": "https://www.youtube.com/results?search_query={searchTerms}", "Alias": "y" },
+      { "Name": "Brave", "URLTemplate": "https://search.brave.com/search?q={searchTerms}", "Alias": "b" },
+      { "Name": "google", "URLTemplate": "https://www.google.com/search?q={searchTerms}", "Alias": "g" }
     ],
     "Default": "Duckduckgo",
-    "Remove": ["Bing", "DuckDuckGo", "Perplexity", "Wikipedia (en)", "eBay"]
+    "Remove": ["Bing", "DuckDuckGo", "Google", "Perplexity", "Wikipedia (en)", "eBay"]
   }
 }

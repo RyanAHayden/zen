@@ -4,11 +4,12 @@ One Zen setup shared by macOS ([hypr-mac](https://github.com/RyanAHayden/hypr-ma
 
 `setup.sh`:
 - installs Zen (Homebrew cask `zen` / `zen-browser-bin` from the AUR)
-- applies `policies.json` (search engines: DuckDuckGo default, YouTube, Brave, Google; Bing/Perplexity/Wikipedia/eBay removed) and installs everything in `extensions.txt` (`<addon id> <addons.mozilla.org slug>`) through enterprise policy: macOS `app.zen-browser.zen` prefs, Linux the package's `distribution/policies.json` (reset by updates - installed extensions stay, re-run for new ones)
+- applies `policies.json` (search engines: DuckDuckGo default, YouTube, Brave, Google, with shortcuts `d`, `y`, `b`, `g` in the address bar; Bing/Perplexity/Wikipedia/eBay removed, and the built-in DuckDuckGo/Google swapped for policy ones, since only those can have a shortcut) and installs everything in `extensions.txt` (`<addon id> <addons.mozilla.org slug>`) through enterprise policy: macOS `app.zen-browser.zen` prefs, Linux the package's `distribution/policies.json` (reset by updates - installed extensions stay, re-run for new ones)
 - links `user.js` (prefs, reapplied every start - change them here) and `chrome/` (Catppuccin Mocha userChrome/userContent, the Ghost Tabs and No Top Sites mods) into every profile
 - copies `zen-themes.json` (the mods list) and merges `customKeys.json` (Cmd/Ctrl+1-5 workspaces, Alt+A/D previous/next workspace, Cmd/Ctrl+J downloads, Cmd/Ctrl+Shift+A add-ons)
 - turns off the Library (`zen.library.enabled`) and puts the plain Downloads button back in the sidebar
 - turns off split view (drag/click splitting prefs, its shortcuts unbound, menu entries hidden)
+- turns off the macOS window blur (`zen.widget.macos.window-vibrancy`)
 - keeps window sync on (`zen.window-sync.enabled`): with it off, links that open Zen can come up in a blank window
 
 On a fresh install it starts Zen once without a window to create the profile, so it all applies in one run. Quit Zen before running it, otherwise the mods list and the Library button are skipped. Bookmarks, history and tabs come from Firefox Sync (sign in once per machine, after setup). Sync can carry add-ons too; `extensions.txt` is the set every new machine starts with. Prefs in `user.js` win over synced settings every start.

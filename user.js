@@ -12,6 +12,9 @@ user_pref("zen.window-sync.enabled", true);
 user_pref("browser.sessionstore.restore_windows_to_virtual_desktop", false);
 
 user_pref("zen.view.compact.enable-at-startup", false);
+// no macOS blur: the window background is solid, not the frosted wallpaper behind it (any see-through is the window
+// manager's opacity, like every other window)
+user_pref("zen.widget.macos.window-vibrancy", false);
 // no split view: dragging/clicking tabs never splits (its shortcuts are unbound in customKeys.json, menus hidden in userChrome.css)
 user_pref("zen.splitView.enable-tab-drop", false);
 user_pref("zen.splitView.enable-drag-over-split", false);
