@@ -3,8 +3,9 @@
 
 // no Library: the sidebar keeps the plain Downloads button
 user_pref("zen.library.enabled", false);
-// windows don't share tabs/spaces (Zen 1.17+ window sync), so a new window opens blank like it used to
-user_pref("zen.window-sync.enabled", false);
+// window sync stays on (Zen 1.17+: windows share tabs/spaces). With it off, Zen sometimes builds a window in no space,
+// which shows nothing, and rebuilds that broken window from the last closed one every time a link opens Zen
+user_pref("zen.window-sync.enabled", true);
 
 // a new window opens on the macOS Space you're on: with no window open, Zen builds it from the last closed one,
 // Space included, and session restore would move it back there
