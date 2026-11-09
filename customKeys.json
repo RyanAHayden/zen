@@ -41,5 +41,10 @@
   "zen-workspace-backward": {
     "modifiers": "alt",
     "key": "A"
-  }
+  },
+  "zen-split-view-grid": {},
+  "zen-split-view-vertical": {},
+  "zen-split-view-horizontal": {},
+  "zen-split-view-unsplit": {},
+  "zen-new-empty-split-view": {}
 }

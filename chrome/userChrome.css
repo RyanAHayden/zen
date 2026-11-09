@@ -128,3 +128,12 @@
     background-color: #181825 !important;
   }
 }
+
+/* No split view (user.js turns off drag/click splitting, customKeys.json its shortcuts) */
+#context_zenSplitTabs,
+#context-openlinkinsplitview,
+#main-context-menu-open-link-split-view,
+#zen-panel-ui-new-empty-split,
+#context_moveTabToSplitView {
+  display: none !important;
+}

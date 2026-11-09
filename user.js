@@ -6,8 +6,15 @@ user_pref("zen.library.enabled", false);
 // windows don't share tabs/spaces (Zen 1.17+ window sync), so a new window opens blank like it used to
 user_pref("zen.window-sync.enabled", false);
 
+// a new window opens on the macOS Space you're on: with no window open, Zen builds it from the last closed one,
+// Space included, and session restore would move it back there
+user_pref("browser.sessionstore.restore_windows_to_virtual_desktop", false);
+
 user_pref("zen.view.compact.enable-at-startup", false);
+// no split view: dragging/clicking tabs never splits (its shortcuts are unbound in customKeys.json, menus hidden in userChrome.css)
 user_pref("zen.splitView.enable-tab-drop", false);
+user_pref("zen.splitView.enable-drag-over-split", false);
+user_pref("zen.splitView.enable-tab-click-split", false);
 user_pref("zen.splitView.min-resize-width", 0);
 user_pref("zen.splitView.rearrange-hover-size", 0);
 user_pref("zen.tabs.close-on-back-with-no-history", false);
