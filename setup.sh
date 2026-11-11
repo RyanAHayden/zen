@@ -11,7 +11,7 @@ if [ "$(uname)" = Darwin ]; then
 	running() { pgrep -f "Zen.app/Contents/MacOS/zen" >/dev/null; }
 else
 	command -v zen-browser >/dev/null || yay -S --needed zen-browser-bin
-	command -v jq >/dev/null || sudo pacman -S --needed jq
+	command -v jq >/dev/null && command -v sqlite3 >/dev/null || sudo pacman -S --needed jq sqlite
 	PROFILES="$HOME/.config/zen"
 	[ -f "$PROFILES/profiles.ini" ] || PROFILES="$HOME/.zen"
 	running() { pgrep -x zen-bin >/dev/null; }
@@ -54,7 +54,7 @@ if [ ! -f "$PROFILES/profiles.ini" ]; then
 		exit 0
 	fi
 fi
-running && echo "  Zen is running: skipping the mods list and Library button (quit Zen and re-run for those)"
+running && echo "  Zen is running: skipping the mods list, Library button and Vimium settings (quit Zen and re-run for those)"
 sed -n 's/^Path=//p' "$PROFILES/profiles.ini" | while read -r p; do
 	dir="$PROFILES/$p"
 	[ -d "$dir" ] || continue
@@ -70,6 +70,14 @@ sed -n 's/^Path=//p' "$PROFILES/profiles.ini" | while read -r p; do
 		# Library button -> Downloads button (zen.library.enabled=false only changes the default for new profiles)
 		if [ -f "$dir/prefs.js" ]; then
 			sed -i.bak 's/\\"zen-library-button\\"/\\"downloads-button\\"/' "$dir/prefs.js" && rm "$dir/prefs.js.bak"
+		fi
+		# Vimium settings live in the extension's storage.sync: merge vimium.json over them (keys it doesn't name stay)
+		# and bump the change counter so Firefox Sync uploads them. The table appears once any add-on has used it
+		if [ -f "$dir/storage-sync-v2.sqlite" ]; then
+			sqlite3 "$dir/storage-sync-v2.sqlite" "INSERT INTO storage_sync_data (ext_id, data)
+				VALUES ('{d7742d87-e61d-4b78-b8a1-b469842139fa}', json(readfile('$REPO/vimium.json')))
+				ON CONFLICT (ext_id) DO UPDATE SET data = json_patch(coalesce(data, '{}'), excluded.data),
+				sync_change_counter = sync_change_counter + 1"
 		fi
 	fi
 done

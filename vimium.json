@@ -1,0 +1,11 @@
+{
+  "settingsVersion": "2.4.2",
+  "smoothScroll": false,
+  "exclusionRules": [
+    { "passKeys": "", "pattern": "https?://mail.google.com/*" },
+    { "passKeys": "", "pattern": "https?://vel.gg/*" },
+    { "passKeys": "", "pattern": "https?://surfd.net/*" },
+    { "passKeys": "", "pattern": "https?://fizl0.github.io/*" },
+    { "passKeys": "m", "pattern": "https?://www.youtube.com/*" }
+  ]
+}
