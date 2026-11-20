@@ -8,12 +8,15 @@ REPO="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 if [ "$(uname)" = Darwin ]; then
 	command -v brew >/dev/null && brew install --cask zen 2>/dev/null || true
 	PROFILES="$HOME/Library/Application Support/zen"
+	ROOTS=("$PROFILES")
 	running() { pgrep -f "Zen.app/Contents/MacOS/zen" >/dev/null; }
 else
 	command -v zen-browser >/dev/null || yay -S --needed zen-browser-bin
 	command -v jq >/dev/null && command -v sqlite3 >/dev/null || sudo pacman -S --needed jq sqlite
 	PROFILES="$HOME/.config/zen"
 	[ -f "$PROFILES/profiles.ini" ] || PROFILES="$HOME/.zen"
+	# Zen has used both (1.24.2 went back to ~/.zen with a new profile), so set up every profile in either
+	ROOTS=("$HOME/.config/zen" "$HOME/.zen")
 	running() { pgrep -x zen-bin >/dev/null; }
 fi
 
@@ -55,8 +58,10 @@ if [ ! -f "$PROFILES/profiles.ini" ]; then
 	fi
 fi
 running && echo "  Zen is running: skipping the mods list, Library button and Vimium settings (quit Zen and re-run for those)"
-sed -n 's/^Path=//p' "$PROFILES/profiles.ini" | while read -r p; do
-	dir="$PROFILES/$p"
+for root in "${ROOTS[@]}"; do
+[ -f "$root/profiles.ini" ] || continue
+sed -n 's/^Path=//p' "$root/profiles.ini" | while read -r p; do
+	dir="$root/$p"
 	[ -d "$dir" ] || continue
 	if [ -e "$dir/chrome" ] && [ ! -L "$dir/chrome" ]; then rm -rf "$dir/chrome.bak" && mv "$dir/chrome" "$dir/chrome.bak"; fi
 	ln -sfn "$REPO/chrome" "$dir/chrome"
@@ -80,5 +85,6 @@ sed -n 's/^Path=//p' "$PROFILES/profiles.ini" | while read -r p; do
 				sync_change_counter = sync_change_counter + 1"
 		fi
 	fi
+done
 done
 echo "==> zen: done, restart Zen to apply"
