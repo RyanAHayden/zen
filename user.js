@@ -33,12 +33,14 @@ user_pref("browser.bookmarks.showMobileBookmarks", false);
 user_pref("browser.urlbar.suggest.engines", false);
 user_pref("general.autoScroll", true);
 
-// passwords live in KeePassXC, not the browser
+// passwords live in KeePassXC, not the browser (policies.json turns the password manager off too); addresses and cards still autofill
 user_pref("signon.rememberSignons", false);
 user_pref("signon.autofillForms", false);
 user_pref("signon.generation.enabled", false);
 user_pref("signon.management.page.breach-alerts.enabled", false);
 user_pref("dom.forms.autocomplete.formautofill", true);
+user_pref("extensions.formautofill.addresses.enabled", true);
+user_pref("extensions.formautofill.creditCards.enabled", true);
 user_pref("privacy.clearOnShutdown_v2.formdata", true);
 
 user_pref("network.dns.disablePrefetch", true);

@@ -8,5 +8,7 @@
     ],
     "Default": "Duckduckgo",
     "Remove": ["Bing", "DuckDuckGo", "Google", "Perplexity", "Wikipedia (en)", "eBay"]
-  }
+  },
+  "PasswordManagerEnabled": false,
+  "OfferToSaveLogins": false
 }
