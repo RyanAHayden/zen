@@ -57,7 +57,7 @@ if [ ! -f "$PROFILES/profiles.ini" ]; then
 		exit 0
 	fi
 fi
-running && echo "  Zen is running: skipping the mods list, Library button and Vimium settings (quit Zen and re-run for those)"
+running && echo "  Zen is running: skipping the mods list, Library button, Vimium and Dark Reader settings (quit Zen and re-run for those)"
 for root in "${ROOTS[@]}"; do
 [ -f "$root/profiles.ini" ] || continue
 sed -n 's/^Path=//p' "$root/profiles.ini" | while read -r p; do
@@ -76,13 +76,16 @@ sed -n 's/^Path=//p' "$root/profiles.ini" | while read -r p; do
 		if [ -f "$dir/prefs.js" ]; then
 			sed -i.bak 's/\\"zen-library-button\\"/\\"downloads-button\\"/' "$dir/prefs.js" && rm "$dir/prefs.js.bak"
 		fi
-		# Vimium settings live in the extension's storage.sync: merge vimium.json over them (keys it doesn't name stay)
-		# and bump the change counter so Firefox Sync uploads them. The table appears once any add-on has used it
+		# Vimium and Dark Reader settings live in each extension's storage.sync: merge <name>.json over them (keys it
+		# doesn't name stay) and bump the change counter so Firefox Sync uploads them. The table appears once any add-on has used it
 		if [ -f "$dir/storage-sync-v2.sqlite" ]; then
-			sqlite3 "$dir/storage-sync-v2.sqlite" "INSERT INTO storage_sync_data (ext_id, data)
-				VALUES ('{d7742d87-e61d-4b78-b8a1-b469842139fa}', json(readfile('$REPO/vimium.json')))
-				ON CONFLICT (ext_id) DO UPDATE SET data = json_patch(coalesce(data, '{}'), excluded.data),
-				sync_change_counter = sync_change_counter + 1"
+			for ext in "{d7742d87-e61d-4b78-b8a1-b469842139fa} vimium" "addon@darkreader.org darkreader"; do
+				set -- $ext
+				sqlite3 "$dir/storage-sync-v2.sqlite" "INSERT INTO storage_sync_data (ext_id, data)
+					VALUES ('$1', json(readfile('$REPO/$2.json')))
+					ON CONFLICT (ext_id) DO UPDATE SET data = json_patch(coalesce(data, '{}'), excluded.data),
+					sync_change_counter = sync_change_counter + 1"
+			done
 		fi
 	fi
 done
